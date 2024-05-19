@@ -10,6 +10,9 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import rahulshettyacademy.pageobjects.CartPage;
+import rahulshettyacademy.pageobjects.OrderPage;
+
 public class AbstractComponent {
 	WebDriver driver;
 	
@@ -17,6 +20,9 @@ public class AbstractComponent {
 	
 	@FindBy(css="[routerlink*='cart']")
 	WebElement cartHeader;
+	
+	@FindBy(css = "[routerlink*='myorders']")
+	WebElement orderHeader;
 	
 	
 	public AbstractComponent(WebDriver driver) {
@@ -28,18 +34,45 @@ public class AbstractComponent {
 	public void waitForElementAppaer(By findBy) {
 	
 	WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
-	wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".mb-3")));
+	wait.until(ExpectedConditions.visibilityOfElementLocated(findBy));
 	}
 	
-	public void gotoCartpage() {
+	public void waitForWebElementToAppear(WebElement findBy) {
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until(ExpectedConditions.visibilityOf(findBy));
+
+	}
+	
+	public void waitForClickable(WebElement efe) {
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until(ExpectedConditions.elementToBeClickable(efe));
+
+	}
+	
+	
+	
+	
+	public CartPage goToCartPage()
+	{
 		cartHeader.click();
-		
+		CartPage cartPage = new CartPage(driver);
+		return cartPage;
+	}
+	public OrderPage goToOrdersPage()
+	{
+		orderHeader.click();
+		OrderPage orderPage = new OrderPage(driver);
+		return orderPage;
 	}
 	
 	public void waitForElementDisAppaer(WebElement ele) throws InterruptedException {
 		
-		Thread.sleep(1000);
-		//WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
-		//wait.until(ExpectedConditions.invisibilityOf(ele));
+		Thread.sleep(4000);
+//		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(2));
+//		wait.until(ExpectedConditions.invisibilityOf(ele));
 		}
+	
+	
 }
