@@ -76,6 +76,8 @@ public class StandaloneTest {
 		String confirmMessage = driver.findElement(By.cssSelector(".hero-primary")).getText();
 		Assert.assertTrue(confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
 		System.out.println(confirmMessage);
+		System.out.println(confirmMessage);
+		System.out.println(confirmMessage);
 		driver.close();
 	}
 
